@@ -1,0 +1,27 @@
+{
+  "name": "ps-presentation",
+  "version": "0.1.0",
+  "main": [
+    "js/reveal.js",
+    "css/reveal.css"
+  ],
+  "homepage": "https://patrick-spiegel.de",
+  "license": "MIT",
+  "description": "My personal presentation framework",
+  "authors": [
+    "Patrick Spiegel <patrickspiegel92@gmail.com>"
+  ],
+  "dependencies": {
+    "headjs": "~1.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.patrick-spiegel.de:patrick/presentation-framwork.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}

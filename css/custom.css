@@ -1,0 +1,72 @@
+/*********************************************
+* CUSTOM BRANDING
+*********************************************/
+body:after {
+  content: url(../../images/logo.png);
+  transform-origin: bottom left;
+  transform: scale(0.10);
+  position: fixed;
+  bottom: 3%;
+  left: 2%;
+}
+
+h1 {
+  color: #009DE0 !important;
+}
+
+h2 {
+  color: #009DE0 !important;
+}
+
+.no-bullets {
+  list-style-type: none !important;
+}
+
+img {
+  border: 0px none !important;
+  box-shadow: none !important;
+}
+
+.img-md {
+  width: 45%;
+}
+
+em {
+  background-color: #009DE0;
+  color: white;
+  border-radius: 20px;
+  padding: 0px 7px 0px 7px !important; 
+}
+
+.tag {
+  color: #009DE0;
+  font-size: 0.8em !important;
+}
+
+.url {
+  color: #002b36;
+  font-size: 0.6em !important;
+}
+
+/*********************************************
+* Quotes
+*********************************************/
+.quote {
+  font-style: italic !important;
+}
+
+.quote-author {
+  text-align: right;
+  color: #009DE0;
+}
+
+/*********************************************
+* Open Code Play Button
+*********************************************/
+pre + a:hover {
+  color: #009DE0 !important;
+}
+
+pre + a {
+  color: #002b36 !important;
+}

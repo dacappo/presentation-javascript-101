@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Secure Website</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function writeSelection(title, director) {
+        document.write("<p>");
+        document.write("You selected: " + title + " from " + director + "!");
+        document.write("</p>");
+      }
+
+      var params = location.hash.slice(1).split('|');
+
+      writeSelection(params[0], params[1]);
+    </script>
+  </body>
+</html>
