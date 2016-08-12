@@ -18,6 +18,10 @@ h2 {
   color: #009DE0 !important;
 }
 
+blue {
+  color: #009DE0;
+}
+
 .no-bullets {
   list-style-type: none !important;
 }

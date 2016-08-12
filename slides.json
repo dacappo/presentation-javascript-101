@@ -1,5 +1,7 @@
 {"include": [
   "slide-title.html",
   "slide-intro.html",
-  "slide-agenda.html"
+  "slide-agenda.html",
+  "slide-attacker-model-normal.html",
+  "slide-attacker-model-extended.html"
 ]}
