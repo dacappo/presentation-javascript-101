@@ -1,0 +1,142 @@
+<section>
+
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Prevention</blue></h3>
+    <br>
+    <h3><span class="fa-stack fa-lg">
+      <i class="fa fa-square fa-stack-2x"></i>
+      <i class="fa fa-shield fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+    </span></h3>
+  </section>
+  
+  <!-- What's the problem -->
+  <section>
+    <h3>What's the <blue>problem</blue>?</h3>
+    <p>
+      <span class="fragment">The queries' semantic is encoded in the <em>object</em> or <em>type structure</em> of passed parameters.</span><br><br>
+      <span class="fragment">{'password': <blue>'1234'</blue>} vs {'password': <blue>{'&ne': '1'}</blue>}</span><br><br>
+    </p>
+  </section>
+
+  <section>
+    <h3>Is <blue>type casting</blue> a solution?</h3><br>
+    <span class="fragment">{'password': req.param.password<blue>.toString()</blue>}</span><br><br>
+    <p class="fragment"><i class="fa fa-thumbs-up blue"></i> Secure against type manipulation</p>
+    <p class="fragment"><i class="fa fa-thumbs-down red"></i> Not flexible enough for unstructured data</p>
+    <p class="fragment"><i class="fa fa-thumbs-down red"></i> Easy to forget in practice ...</p>
+  </section>
+
+  <!-- Prevention - Taint tracking? -->
+  <section>
+    <h3>Is <blue>Dynamic Code Analysis</blue> a solution?</h3><br>
+    <p class="fragment"> <grey>{user: </grey><red>'Patrick'</red><grey>, address: {city: </grey><red>'Karlsruhe'</red><grey>, code: </grey><red>76133</red><grey>}}</grey></p><br>
+    <p class="fragment"><i class="fa fa-arrow-right"></i> Reduces <red>user-controlled</red> data to string and integer values<p>
+    <p class="fragment"><i class="fa fa-arrow-right"></i> <grey>Application-controlled</grey> structure<p>
+  </section>
+
+  <!-- Prevention - Taint tracking? -->
+  <section>
+    <h3><blue>Dynamic Code Analysis</blue></h3><h5>Data variety?</h5><br>
+<pre><code class="javascript" data-trim data-noescape>
+<span class="fragment" data-fragment-index="1">if (obj.user && obj.address) {</span>
+<span class="fragment" data-fragment-index="2">  collection.insert({user: <mark>obj.user</mark>, address: <mark>obj.address</mark>});</span>
+<span class="fragment" data-fragment-index="3">} else if (obj.user && obj.phone) {</span>
+<span class="fragment" data-fragment-index="4">  collection.insert({user: <mark>obj.user</mark>, phone: <mark>obj.phone</mark>});</span>
+<span class="fragment" data-fragment-index="5">} else if ...</span>
+</code></pre>
+    <br>
+    <p class="fragment"><i class="fa fa-thumbs-up blue"></i> Secure for structure manipulation</p>
+    <p class="fragment"><i class="fa fa-thumbs-down red"></i> Impractical for many different property combinations!</p>
+  </section>
+
+    <!-- Prevention - Taint tracking? -->
+  <section>
+    <h3>Is <blue>Dynamic Code Analysis</blue> a solution?</h3><br>
+    <h2 class="fragment"> <blue>NO</blue></h2><br>
+    <p class="fragment">Breaks existing implementations<br>Extensive <em>code adjustments</em> necessary</p>
+    <p class="fragment">Hard to handle <em>data variety</em> securely<p>
+  </section>
+
+  <!-- Prevention approach MongoDB + NodeJS -->
+  <section>
+    <h3><blue>Prevention</blue> - Drop-in</h3><br>
+    <img src="images/mongodb.png" class="logo-central"><br><br>
+    <i class="fa fa-plus framed"></i><br><br>
+    <img src="images/nodejs.png" class="logo-central">
+  </section>
+
+  <!-- Prevention approach MongoDB -->
+  <section>
+    <h3><blue>Prevention</blue> - Drop-in</h3>
+<pre><code class="javascript" data-trim data-noescape>
+var client = require('mongodb').MongoClient,
+    db = client.connect('mongodb://localhost:27017/db');
+
+db.users.find({username: req.body.username, 
+               password: request.body.password});
+</code></pre>
+
+<pre class="fragment"><code class="javascript" data-trim data-noescape>
+var client = require(<span class="fragment">'mongodb-secure'</span>).MongoClient,
+    db = client.connect('mongodb://localhost:27017/db');
+
+db.users.find({
+  user: req.body.user, 
+  password: request.body.password}<span class="fragment">,
+  new client.SecurityPattern({user: 'string', password: 'string'})</span>);
+</code></pre>
+  </section>
+
+  <!-- Prevention approach MongoDB Problem -->
+  <section>
+    <h3><blue>Prevention</blue> - Drop-in</h3>
+
+    <ul class="no-bullets fragment">
+      <li class="fragment highlight-current-blue">
+        <i class="fa fa-plus-circle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">Drop-in replacement</span>
+      </li>
+      <li class="fragment highlight-current-blue">
+        <i class="fa fa-plus-circle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">Flexible restrictions</span>
+      </li>
+    </ul><br><br>
+
+    <ul class="no-bullets fragment">
+      <li class="fragment highlight-current-red">
+        <i class="fa fa-exclamation-triangle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">No protection by default</span>
+      </li>
+      <li class="fragment highlight-current-red">
+        <i class="fa fa-exclamation-triangle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">Manual code changes</span>
+      </li>
+    </ul>
+
+  </section>
+
+  <!-- Prevention approach MongoDB Problem -->
+  <section>
+    <h3><blue>Prevention</blue> <br>Learning Security Patterns</h3>
+
+    <p class="fragment"><em>Learning</em> and <em>execution</em> phase for security patterns, to allow common behavior and block conspicuous cases.</p>
+
+    <ul class="no-bullets">
+      <li class="fragment">
+        <i class="fa fa-plus-circle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">Drop-in replacement</span>
+      </li>
+      <li class="fragment">
+        <i class="fa fa-plus-circle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">Protection by default</span>
+      </li>
+      <li class="fragment">
+        <i class="fa fa-plus-circle" style="line-height: 2em"></i>
+        <span style="vertical-align:top; line-height: 2em;">No Manual code changes</span>
+      </li>
+    </ul>
+
+  </section>
+
+</section>
