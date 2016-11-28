@@ -2,9 +2,12 @@
 * CUSTOM BRANDING
 *********************************************/
 body:after {
-  content: url(../../images/owasp.png);
+  content: url(../../images/logo.png);
+  background-color: white;
+  padding: 4em;
+  border-radius: 2em;
   transform-origin: bottom left;
-  transform: scale(0.2);
+  transform: scale(0.15);
   position: fixed;
   bottom: 3%;
   left: 2%;
@@ -14,8 +17,12 @@ body:after {
   font-size: .6em !important;
 }
 
+black {
+ color: #111;
+}
+
 blue {
-  color: #1da1f2;
+  color: #00a990;
 }
 
 red {
@@ -23,7 +30,7 @@ red {
 }
 
 green {
-  color: green;
+  color: #00a990;
 }
 
 grey {
@@ -35,7 +42,7 @@ grey {
 }
 
 .blue {
-  color: #1da1f2;
+  color: #00a990;
 }
 
 .red {
@@ -52,7 +59,7 @@ img {
 }
 
 em {
-  background-color: #1da1f2;
+  background-color: #00a990;
   color: white;
   border-radius: 4px;
   padding: 0px 7px 0px 7px !important; 
@@ -64,7 +71,7 @@ em {
 }
 
 .tag {
-  color: #1da1f2;
+  color: #00a990;
   font-size: 0.8em !important;
 }
 
@@ -146,14 +153,14 @@ td {
 
 .quote-author {
   text-align: right;
-  color: #1da1f2;
+  color: #00a990;
 }
 
 /*********************************************
 * Open Code Play Button
 *********************************************/
 pre + a:hover {
-  color: #1da1f2 !important;
+  color: #00a990 !important;
 }
 
 pre + a {
