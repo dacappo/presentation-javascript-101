@@ -1,16 +1,54 @@
 <section>
-  <h3><blue>Attacker Model</blue> - Mightiness</h3><br>
-	<p><span class="fragment">The attacker is aware of the deployed <em>technology stack</em></span><span class="fragment">, including application server, driver, framworks and database.</span></p><br>
 
-
-  <p><span class="fragment">The attacker is able to send <em>arbitrary requests</em> to the server</span><span class="fragment"> with the authorization of a normal application user.</span>
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Attacker Model</blue></h3>
+    <br>
+    <h3><span class="fa-stack fa-lg">
+      <i class="fa fa-square fa-stack-2x"></i>
+      <i class="fa fa-user-secret fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+    </span></h3>
+  </section>
+  
+  <!-- Attacker model - mightiness -->
+  <section>
+    <h3><blue>Attacker Model</blue> - Mightiness</h3>
+    <br>
+    <p>
+      <span class="fragment">The attacker is aware of the deployed <br><em>technology stack</em></span><span class="fragment"> including application server, driver, frameworks and database.</span>
+    </p>
+    <br>
+    <p>
+      <span class="fragment">The attacker is able to send <em>arbitrary requests</em> to the server</span><span class="fragment"> with the authorization of a normal application user.
+      </span>
 		<p>
-</section>
+  </section>
 
-<section>
-  <h3><blue>Attacker Model</blue> - Goal</h3><br>
-  <p><span class="fragment">The attacker's goal is to achieve <em>unintended behavior</em> of the database query</span><span class="fragment">, by <em>altering query</em> parameters.</span>
-  </p><br>
-  <p><span class="fragment"> The attacker is able to trigger unintended <em>CRUD operations</em>.</span>
-    <p><br>
+  <!-- Attacker model - goal -->
+  <section>
+    <h3><blue>Attacker Model</blue> - Goal</h3><br>
+    <p><span class="fragment">The attacker's goal is to achieve <br><em>unintended behavior</em> of the database query</span><span class="fragment"> by <em>altering query</em> parameters.</span>
+    </p>
+    <br>
+    <p><span class="fragment"> The attacker is able to trigger unintended <br><em>CRUD operations</em>.</span>
+    <p>
+  </section>
+
+  <!-- Attacker model - illustration -->
+  <section>
+    <h3><blue>Attacker Model</blue> - Overview</h3><br>
+    <img src="images/attacker-model-normal.png">
+  </section>
+
+  <!-- Attacker model - extended -->
+  <section>
+    <h3><blue>NoSQL Injection</blue> Attacker</h3>
+    <br>
+    <p><span class="fragment"><em class="grey">Attacker Model </em></span><br><br>
+    <span class="fragment"><i class="fa fa-plus framed"></i> Query languages for unstructured data</span><br><br>
+    <span class="fragment"><i class="fa fa-plus framed"></i> Diverse system landscapes with multiple databases</span><br><br>
+    <span class="fragment"><i class="fa fa-plus framed"></i> Direct client-side database access via RESTfull interfaces</span></p>
+    <p>
+  </section>
+
 </section>
