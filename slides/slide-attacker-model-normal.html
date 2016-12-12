@@ -30,7 +30,7 @@
     <p><span class="fragment">The attacker's goal is to achieve <br><em>unintended behavior</em> of the database query</span><span class="fragment"> by <em>altering query</em> parameters.</span>
     </p>
     <br>
-    <p><span class="fragment"> The attacker is able to trigger unintended <br><em>CRUD operations</em>.</span>
+    <p><span class="fragment"> The attacker is able to break the <br><em>CIA triad</em> with regard to the stored data.</span>
     <p>
   </section>
 
@@ -43,12 +43,18 @@
   <!-- Attacker model - extended -->
   <section>
     <h3><blue>NoSQL Injection</blue> Attacker</h3>
-    <br>
-    <p><span class="fragment"><em class="grey">Attacker Model </em></span><br><br>
+    <p><span><em class="blue" style="color: white;">Common Attacker Model</em></span><br><span ><em class="grey">Extended Attacker Model</em></span> <span><em class="grey">Direct Attacker Model</em></span><br><br>
     <span class="fragment"><i class="fa fa-plus framed"></i> Query languages for unstructured data</span><br><br>
     <span class="fragment"><i class="fa fa-plus framed"></i> Diverse system landscapes with multiple databases</span><br><br>
-    <span class="fragment"><i class="fa fa-plus framed"></i> Direct client-side database access via RESTfull interfaces</span></p>
-    <p>
+    <span class="fragment"><i class="fa fa-plus framed"></i> Direct client-side database access via RESTfull interfaces</span>
+  </section>
+
+  <section>
+    <h3><blue>Attacker</blue> Surface</h3><br>
+    <p class="fragment">According to the attacker model the entire request</p><br>
+    <p class="fragment">In practice limited to the protocol structure</p><br>
+    <p class="fragment">Focus on application parameterization parts</p>
+
   </section>
 
 </section>

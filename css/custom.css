@@ -7,7 +7,7 @@ body:after {
   padding: 4em;
   border-radius: 2em;
   transform-origin: bottom left;
-  transform: scale(0.15);
+  transform: scale(0.10);
   position: fixed;
   bottom: 3%;
   left: 2%;

@@ -2,7 +2,7 @@
 
   <!-- Chapter slide -->
   <section>
-    <h3><blue>Prevention</blue></h3>
+    <h3><blue>Mitigation</blue></h3>
     <br>
     <h3><span class="fa-stack fa-lg">
       <i class="fa fa-square fa-stack-2x"></i>
@@ -15,7 +15,7 @@
     <h3>What's the <blue>problem</blue>?</h3>
     <p>
       <span class="fragment">The queries' semantic is encoded in the <em>object</em> or <em>type structure</em> of passed parameters.</span><br><br>
-      <span class="fragment">{'password': <blue>'1234'</blue>} vs {'password': <blue>{'&ne': '1'}</blue>}</span><br><br>
+      <span class="fragment">{'password': <blue>'1234'</blue>} vs {'password': <blue>{'$ne': '1'}</blue>}</span><br><br>
     </p>
   </section>
 
@@ -27,7 +27,7 @@
     <p class="fragment"><i class="fa fa-thumbs-down red"></i> Easy to forget in practice ...</p>
   </section>
 
-  <!-- Prevention - Taint tracking? -->
+  <!-- Mitigation - Taint tracking? -->
   <section>
     <h3>Is <blue>Dynamic Code Analysis</blue> a solution?</h3><br>
     <p class="fragment"> <grey>{user: </grey><red>'Patrick'</red><grey>, address: {city: </grey><red>'Karlsruhe'</red><grey>, code: </grey><red>76133</red><grey>}}</grey></p><br>
@@ -35,7 +35,7 @@
     <p class="fragment"><i class="fa fa-arrow-right"></i> <grey>Application-controlled</grey> structure<p>
   </section>
 
-  <!-- Prevention - Taint tracking? -->
+  <!-- Mitigation - Taint tracking? -->
   <section>
     <h3><blue>Dynamic Code Analysis</blue></h3><h5>Data variety?</h5><br>
 <pre><code class="javascript" data-trim data-noescape>
@@ -46,29 +46,21 @@
 <span class="fragment" data-fragment-index="5">} else if ...</span>
 </code></pre>
     <br>
-    <p class="fragment"><i class="fa fa-thumbs-up blue"></i> Secure for structure manipulation</p>
-    <p class="fragment"><i class="fa fa-thumbs-down red"></i> Impractical for many different property combinations!</p>
-  </section>
-
-    <!-- Prevention - Taint tracking? -->
-  <section>
-    <h3>Is <blue>Dynamic Code Analysis</blue> a solution?</h3><br>
-    <h2 class="fragment"> <blue>NO</blue></h2><br>
-    <p class="fragment">Breaks existing implementations<br>Extensive <em>code adjustments</em> necessary</p>
     <p class="fragment">Hard to handle <em>data variety</em> securely<p>
+    <p class="fragment">Breaks existing implementations<br>Extensive <em>code adjustments</em> necessary</p>
   </section>
 
-  <!-- Prevention approach MongoDB + NodeJS -->
+  <!-- Mitigation approach MongoDB + NodeJS -->
   <section>
-    <h3><blue>Prevention</blue> - Drop-in</h3><br>
+    <h3><blue>Mitigation</blue> - Drop-in</h3><br>
     <img src="images/mongodb.png" class="logo-central"><br><br>
     <i class="fa fa-plus framed"></i><br><br>
     <img src="images/nodejs.png" class="logo-central">
   </section>
 
-  <!-- Prevention approach MongoDB -->
+  <!-- Mitigation approach MongoDB -->
   <section>
-    <h3><blue>Prevention</blue> - Drop-in</h3>
+    <h3><blue>Mitigation</blue> - Drop-in</h3>
 <pre><code class="javascript" data-trim data-noescape>
 var client = require('mongodb').MongoClient,
     db = client.connect('mongodb://localhost:27017/db');
@@ -86,11 +78,6 @@ db.users.find({
   password: request.body.password}<span class="fragment">,
   new client.SecurityPattern({user: 'string', password: 'string'})</span>);
 </code></pre>
-  </section>
-
-  <!-- Prevention approach MongoDB Problem -->
-  <section>
-    <h3><blue>Prevention</blue> - Drop-in</h3>
 
     <ul class="no-bullets fragment">
       <li class="fragment highlight-current-green">
@@ -101,24 +88,64 @@ db.users.find({
         <i class="fa fa-plus-circle" style="line-height: 2em"></i>
         <span style="vertical-align:top; line-height: 2em;">Flexible restrictions</span>
       </li>
-    </ul><br><br>
-
-    <ul class="no-bullets fragment">
-      <li class="fragment highlight-current-red">
-        <i class="fa fa-exclamation-triangle" style="line-height: 2em"></i>
-        <span style="vertical-align:top; line-height: 2em;">No protection by default</span>
-      </li>
-      <li class="fragment highlight-current-red">
-        <i class="fa fa-exclamation-triangle" style="line-height: 2em"></i>
-        <span style="vertical-align:top; line-height: 2em;">Manual code changes</span>
-      </li>
     </ul>
+  </section>
+
+  <section>
+    <h3><blue>Mitigation</blue> Evaluation</h3><br>
+
+    <p class="fragment" data-fragment-index="1"><em>mongodb-secure</em> driver replaces <em>mongodb</em> driver.</p>
+
+    <small><table class="fragment" data-fragment-index="2">
+      <tr>
+        <th>Application</th>
+        <th>Tests Normal</th> 
+        <th>Tests Secure</th>
+        <th>Deviation</th>
+      </tr>
+      <tr class="">
+        <td>MongoDB driver</td> 
+        <td>1047</td>
+        <td>1039</td>
+        <td class="fragment highlight-green" data-fragment-index="3">< 1%</td>
+      </tr>
+      <tr>
+        <td>Agora</td> 
+        <td>1415</td>
+        <td>1415</td>
+        <td class="fragment highlight-green" data-fragment-index="4">0%</td>
+      </tr>
+      <tr class="">
+        <td>Apostrophe 2</td> 
+        <td>274</td>
+        <td>274</td>
+        <td class="fragment highlight-green" data-fragment-index="4">0%</td>
+      </tr>
+      <tr>
+        <td>Habitica</td> 
+        <td>2074</td>
+        <td>2074</td>
+        <td class="fragment highlight-green" data-fragment-index="4">0%</td>
+      </tr>
+      <tr>
+        <td>NodeBB</td> 
+        <td>374</td>
+        <td>374</td>
+        <td class="fragment highlight-green" data-fragment-index="4">0%</td>
+      </tr>
+      <tr>
+        <td>Pencilblue</td> 
+        <td>610</td>
+        <td>610</td>
+        <td class="fragment highlight-green" data-fragment-index="4">0%</td>
+      </tr>
+    </table></small>
 
   </section>
 
-  <!-- Prevention approach MongoDB Problem -->
+  <!-- Mitigation approach MongoDB Problem -->
   <section>
-    <h3><blue>Prevention</blue> <br>Learning Security Patterns</h3>
+    <h3><blue>Mitigation</blue> <br>Learning Security Patterns</h3>
 
     <p class="fragment"><em>Learning</em> and <em>execution</em> phase for security patterns, to allow common behavior and block conspicuous cases.</p>
 
