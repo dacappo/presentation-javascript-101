@@ -1,0 +1,93 @@
+<section>
+
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Hoisting</blue></h3>
+    <br>
+    <h3>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-chevron-up fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+      </span>
+    </h3>
+  </section>
+  
+  <!-- var and hoisting -->
+  <section>
+    <h3><blue>Hoisting</blue></h3>
+    <p class="fragment" data-fragment-index="3"><small><em>var</em> declares but not defines</small></p>
+
+    <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+var foo;
+console.log(foo);
+foo = 'bar';
+    </code></pre><br>
+
+    <small><table class="fragment" data-fragment-index="2">
+        <tr>
+          <td><em>A</em> bar</td>
+          <td class="fragment highlight-green" data-fragment-index="3"><em>B</em> undefined</td>
+          <td><em>C</em> ReferenceError</td>
+        </tr>
+    </table></small>
+  </section>
+
+  <!-- var and hoisting -->
+  <section>
+        <h3><blue>Hoisting</blue></h3>
+        <p class="fragment" data-fragment-index="3"><small><em>var</em> is hoisted</small></p>
+    
+        <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+console.log(foo);
+var foo = 'bar';
+        </code></pre><br>
+    
+        <small><table class="fragment" data-fragment-index="2">
+            <tr>
+              <td><em>A</em> bar</td>
+              <td class="fragment highlight-green" data-fragment-index="3"><em>B</em> undefined</td>
+              <td><em>C</em> ReferenceError</td>
+            </tr>
+        </table></small>
+    </section>
+
+    <!-- let and hoisting -->
+  <section>
+        <h3><blue>Hoisting</blue></h3>
+        <p class="fragment" data-fragment-index="3"><small><em>let</em> is not hoisted</small></p>
+    
+        <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+console.log(foo);
+let foo = 'bar';
+        </code></pre><br>
+    
+        <small><table class="fragment" data-fragment-index="2">
+            <tr>
+              <td><em>A</em> bar</td>
+              <td><em>B</em> undefined</td>
+              <td class="fragment highlight-green" data-fragment-index="3"><em>C</em> ReferenceError</td>
+            </tr>
+        </table></small>
+    </section>
+
+    <!-- const and hoisting -->
+  <section>
+        <h3><blue>Hoisting</blue></h3>
+        <p class="fragment" data-fragment-index="3"><small><em>const</em> is not hoisted</small></p>
+    
+        <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+console.log(foo);
+const foo = 'bar';
+        </code></pre><br>
+    
+        <small><table class="fragment" data-fragment-index="2">
+            <tr>
+              <td><em>A</em> bar</td>
+              <td><em>B</em> undefined</td>
+              <td class="fragment highlight-green" data-fragment-index="3"><em>C</em> ReferenceError</td>
+            </tr>
+        </table></small>
+    </section>
+ 
+
+</section>

@@ -2,10 +2,9 @@
   "slide-title.html",
   "slide-intro.html",
   "slide-agenda.html",
-  "slide-scope-databases.html",
-  "slide-attacker-model-normal.html",
-  "slide-attacks.html",
-  "slide-prevention.html",
-  "slide-end.html",
-  "slide-backup.html"
+  "slide-scoping.html",
+  "slide-context.html",
+  "slide-hoisting.html",
+  "slide-event-loop.html",
+  "slide-end.html"
 ]}

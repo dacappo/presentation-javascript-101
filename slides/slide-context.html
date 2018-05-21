@@ -1,0 +1,159 @@
+<section>
+
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Context</blue></h3>
+    <br>
+    <h3>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-circle fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+      </span>
+    </h3>
+  </section>
+  
+  <!-- this and context -->
+  <section>
+    <h3><blue>Context</blue></h3>
+    <p class="fragment" data-fragment-index="3"><small><em>window</em> is the global object in the browser</small></p>
+
+    <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+window.foo = 'bar';
+console.log(foo);
+    </code></pre><br>
+
+    <small><table class="fragment" data-fragment-index="2">
+        <tr>
+          <td><em>A</em> ReferenceError</td>
+          <td class="fragment highlight-green" data-fragment-index="3"><em>B</em> bar</td>
+        </tr>
+    </table></small>
+  </section>
+
+    <!-- this and context -->
+    <section>
+            <h3><blue>Context</blue></h3>
+            <p class="fragment" data-fragment-index="3"><small><em>this</em> points to the current context = window</small></p>
+        
+            <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+this.foo = 'bar';
+console.log(window.foo);
+            </code></pre><br>
+        
+            <small><table class="fragment" data-fragment-index="2">
+                <tr>
+                  <td><em>A</em> ReferenceError</td>
+                  <td class="fragment highlight-green" data-fragment-index="3"><em>B</em> bar</td>
+                </tr>
+            </table></small>
+          </section> 
+
+
+    <!-- this and context -->
+    <section>
+            <h3><blue>Context</blue></h3>
+            <p class="fragment" data-fragment-index="3"><small><em>log</em> before run</small></p>
+        
+            <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+var foo = 1;
+
+function run(){
+    this.foo = 2;
+    console.log(foo);
+} 
+
+console.log(foo);
+run();
+            </code></pre><br>
+        
+            <small><table class="fragment" data-fragment-index="2">
+                <tr>
+                  <td class="fragment highlight-green" data-fragment-index="3"><em>A</em> 1 + 2</td>
+                  <td><em>B</em> 2 + 1</td>
+                </tr>
+            </table></small>
+          </section>
+
+    <!-- this and context -->
+    <section>
+            <h3><blue>Context</blue></h3>
+            <p class="fragment" data-fragment-index="3"><small><em>functions</em> create scope not context</small></p>
+        
+            <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+var foo = 1;
+
+function run(){
+    this.foo = 2;
+    console.log(foo);
+} 
+
+run();
+
+console.log(foo);
+            </code></pre><br>
+        
+            <small><table class="fragment" data-fragment-index="2">
+                <tr>
+                  <td><em>A</em> 1 + 2</td>
+                  <td class="fragment highlight-green" data-fragment-index="3"><em>B</em> 2 + 2</td>
+                  <td><em>B</em> 2 + 1</td>
+                </tr>
+            </table></small>
+          </section>
+
+        <!-- this and context -->
+        <section>
+                <h3><blue>Context</blue></h3>
+                <p class="fragment" data-fragment-index="3"><small><em>var</em> is bound to scope not context</small></p>
+            
+                <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+var foo = 1;
+    
+function run(){
+    var foo = 2;
+    console.log(foo);
+} 
+    
+run();
+    
+console.log(foo);
+                </code></pre><br>
+            
+                <small><table class="fragment" data-fragment-index="2">
+                    <tr>
+                      <td><em>A</em> 1 + 2</td>
+                      <td><em>B</em> 2 + 2</td>
+                      <td class="fragment highlight-green" data-fragment-index="3"><em>C</em> 2 + 1</td>
+                    </tr>
+                </table></small>
+              </section>
+
+    <!-- this and context -->
+    <section>
+            <h3><blue>Context</blue></h3>
+            <p class="fragment" data-fragment-index="3"><small><em>var</em> is bound to scope, <em>this</em> to window</small></p>
+        
+            <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+var foo = 1;
+
+function run(){
+    var foo = 2;
+    this.foo = 3;
+    console.log(foo);
+} 
+
+run();
+
+console.log(foo);
+            </code></pre><br>
+        
+            <small><table class="fragment" data-fragment-index="2">
+                <tr>
+                  <td class="fragment highlight-green" data-fragment-index="3"><em>A</em> 2 + 3</td>
+                  <td><em>B</em> 3 + 1</td>
+                  <td><em>C</em> 3 + 2</td>
+                </tr>
+            </table></small>
+          </section> 
+
+</section>

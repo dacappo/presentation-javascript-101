@@ -1,0 +1,65 @@
+<section>
+
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Event Loop</blue></h3>
+    <br>
+    <h3>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-undo fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+      </span>
+    </h3>
+  </section>
+  
+  <!-- JS setTimeout -->
+  <section>
+    <h3><blue>Event Loop</blue></h3>
+    <p class="fragment" data-fragment-index="3"><small><em>setTimout</em> uses event loop</small></p>
+
+    <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+console.log(1);
+
+setTimeout(function () {
+    console.log(2);
+}, 0);
+
+console.log(3);
+    </code></pre><br>
+
+    <small><table class="fragment" data-fragment-index="2">
+        <tr>
+          <td><em>A</em> 1 + 2 + 3</td>
+          <td><em>B</em> 2 + 1 + 3</td>
+          <td  class="fragment highlight-green" data-fragment-index="3"><em>C</em> 1 + 3 + 2</td>
+        </tr>
+    </table></small>
+  </section>
+
+    <!-- JS setTimeout -->
+    <section>
+            <h3><blue>Event Loop</blue></h3>
+            <p class="fragment" data-fragment-index="3"><small><em>setTimout</em> uses event loop</small></p>
+        
+            <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+console.log(1);
+        
+setTimeout(function () {
+    console.log(2);
+}, 1);
+        
+setTimeout(function () {
+    console.log(3);
+}, 0);
+            </code></pre><br>
+        
+            <small><table class="fragment" data-fragment-index="2">
+                <tr>
+                  <td class="fragment highlight-green" data-fragment-index="3"><em>A</em> 1 + 2 + 3</td>
+                  <td><em>B</em> 2 + 1 + 3</td>
+                  <td><em>C</em> 1 + 3 + 2</td>
+                </tr>
+            </table></small>
+          </section>
+
+</section>

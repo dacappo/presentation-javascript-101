@@ -1,0 +1,112 @@
+<section>
+
+  <!-- Chapter slide -->
+  <section>
+    <h3><blue>Scope</blue></h3>
+    <br>
+    <h3>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square fa-stack-2x"></i>
+        <i class="fa fa-expand fa-stack-1x fa-inverse" style="line-height: 2em"></i>
+      </span>
+    </h3>
+  </section>
+  
+  <!-- var and function scoping -->
+  <section>
+    <h3><blue>Scope</blue></h3>
+    <p class="fragment" data-fragment-index="3"><small><em>var</em> uses function scoping</small></p>
+
+    <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+function main() {
+  if (true) {
+    var foo = 'bar';
+    console.log(foo);
+  }
+  console.log(foo);
+};
+
+main();
+    </code></pre><br>
+
+    <small><table class="fragment" data-fragment-index="2">
+        <tr>
+          <td class="fragment highlight-green" data-fragment-index="3"><em>A</em> bar + bar</td>
+          <td><em>B</em> bar + undefined</td>
+          <td><em>C</em> bar + ReferenceError</td>
+        </tr>
+    </table></small>
+  </section>
+
+  <!-- var and function scoping -->
+  <section>
+      <h3><blue>Scope</blue></h3>
+      <p class="fragment" data-fragment-index="3"><small><em>var</em> uses function scoping</small></p>
+  
+      <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+for (var i = 0; i < 3; i++) {
+  console.log(i);
+}
+
+console.log(i);
+      </code></pre><br>
+  
+      <small><table class="fragment" data-fragment-index="2">
+          <tr>
+            <td><em>A</em> 0 + 1 + 2 + ReferenceError</td>
+            <td><em>B</em> 0 + 1 + 2 + 2</td>
+            <td class="fragment highlight-green" data-fragment-index="3"><em>C</em> 0 + 1 + 2 + 3</td>
+          </tr>
+      </table></small>
+    </section>
+
+  
+  <!-- let and block scoping -->
+  <section>
+      <h3><blue>Scope</blue></h3>
+      <p class="fragment" data-fragment-index="3"><small><em>let</em> uses function scoping</small></p>
+  
+      <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+for (let i = 0; i < 3; i++) {
+  console.log(i);
+}
+
+console.log(i);
+      </code></pre><br>
+  
+      <small><table class="fragment" data-fragment-index="2">
+          <tr>
+            <td class="fragment highlight-green" data-fragment-index="3"><em>A</em> 0 + 1 + 2 + undefined</td>
+            <td><em>B</em> 0 + 1 + 2 + 2</td>
+            <td><em>C</em> 0 + 1 + 2 + 3</td>
+          </tr>
+      </table></small>
+    </section>
+
+  <!-- const and block scoping -->
+  <section>
+      <h3><blue>Scope</blue></h3>
+      <p class="fragment" data-fragment-index="3"><small><em>const</em> uses block scoping</small></p>
+  
+      <pre class="fragment" data-fragment-index="1"><code class="javascript" data-trim data-noescape>
+function main() {
+  if (true) {
+    const foo = 'bar';
+    console.log(foo);
+  }
+  console.log(foo);
+};
+  
+main();
+      </code></pre><br>
+  
+      <small><table class="fragment" data-fragment-index="2">
+          <tr>
+            <td><em>A</em> bar + bar</td>
+            <td><em>B</em> bar + undefined</td>
+            <td class="fragment highlight-green" data-fragment-index="3"><em>C</em> bar + ReferenceError</td>
+          </tr>
+      </table></small>
+    </section>
+
+</section>
